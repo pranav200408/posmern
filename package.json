@@ -7,9 +7,9 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "start":"node server.js",
-    "server":"nodemon server.js",
-    "client":"npm start --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "seed": "node seeder.js"
   },
@@ -22,5 +22,8 @@
     "express": "^5.1.0",
     "mongoose": "^8.15.1",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
