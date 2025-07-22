@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import axios from "axios";
+import { API_BASE_URL } from "../axios"; // ⭐️ Add this import
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -9,12 +10,14 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import { Table, Button, Modal, message, Form, Input, Select } from "antd";
+
 const CartPage = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [billPopup, setBillPopup] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.rootReducer);
+
   //handle increament
   const handleIncreament = (record) => {
     dispatch({
@@ -95,8 +98,8 @@ const CartPage = () => {
         ),
         userId: JSON.parse(localStorage.getItem("auth"))._id,
       };
-      // console.log(newObject);
-      await axios.post("/api/bills/add-bills", newObject);
+      // ⭐️ API URL fix
+      await axios.post(`${API_BASE_URL}/api/bills/add-bills`, newObject);
       message.success("Bill Generated");
       navigate("/bills");
     } catch (error) {
@@ -104,6 +107,7 @@ const CartPage = () => {
       console.log(error);
     }
   };
+
   return (
     <DefaultLayout>
       <h1>Cart Page</h1>
@@ -130,7 +134,6 @@ const CartPage = () => {
           <Form.Item name="customerNumber" label="Contact Number">
             <Input />
           </Form.Item>
-
           <Form.Item name="paymentMode" label="Payment Method">
             <Select>
               <Select.Option value="cash">Cash</Select.Option>

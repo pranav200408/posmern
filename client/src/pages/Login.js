@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { API_BASE_URL } from "../axios"; // ⭐️ Yeh import add karo
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,8 @@ const Login = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      const res = await axios.post("/api/users/login", value);
+      // ⭐️ API call fix
+      const res = await axios.post(`${API_BASE_URL}/api/users/login`, value);
       dispatch({ type: "HIDE_LOADING" });
       message.success("user login Succesfully");
       localStorage.setItem("auth", JSON.stringify(res.data));
@@ -25,10 +27,8 @@ const Login = () => {
     }
   };
 
-  //currently login  user
   useEffect(() => {
     if (localStorage.getItem("auth")) {
-      localStorage.getItem("auth");
       navigate("/");
     }
   }, [navigate]);

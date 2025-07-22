@@ -6,6 +6,7 @@ import { useReactToPrint } from "react-to-print";
 import axios from "axios";
 import { Modal, Button, Table } from "antd";
 import "../styles/InvoiceStyles.css";
+import { API_BASE_URL } from "../axios"; // ⭐️ yeh line add karo
 
 const BillsPage = () => {
   const componentRef = useRef();
@@ -17,7 +18,8 @@ const BillsPage = () => {
   const getAllBills = async () => {
     try {
       dispatch({ type: "SHOW_LOADING" });
-      const { data } = await axios.get("/api/bills/get-bills"); // ✅ UPDATED
+      // ⭐️ API call me URL change kiya
+      const { data } = await axios.get(`${API_BASE_URL}/api/bills/get-bills`);
       setBillsData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -72,7 +74,7 @@ const BillsPage = () => {
           width={400}
           pagination={false}
           title="Invoice Details"
-          open={popupModal} // ✅ 'visible' -> 'open' for latest AntD
+          open={popupModal}
           onCancel={() => setPopupModal(false)}
           footer={false}
         >

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { API_BASE_URL } from "../axios"; // ⭐️ Yeh import add karo
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,8 @@ const Register = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      await axios.post("/api/users/register", value);
+      // ⭐️ API call fix
+      await axios.post(`${API_BASE_URL}/api/users/register`, value);
       message.success("Register Succesfully");
       navigate("/login");
       dispatch({ type: "HIDE_LOADING" });
@@ -25,13 +27,12 @@ const Register = () => {
     }
   };
 
-  //currently login  user
   useEffect(() => {
     if (localStorage.getItem("auth")) {
-      localStorage.getItem("auth");
       navigate("/");
     }
   }, [navigate]);
+
   return (
     <>
       <div className="register">

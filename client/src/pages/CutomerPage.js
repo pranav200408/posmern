@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { API_BASE_URL } from "../axios"; // ⭐️ Add this import!
 import { Table } from "antd";
+
 const CutomerPage = () => {
   const [billsData, setBillsData] = useState([]);
   const dispatch = useDispatch();
+
   const getAllBills = async () => {
     try {
-      dispatch({
-        type: "SHOW_LOADING",
-      });
-      const { data } = await axios.get("/api/bills/get-bills");
+      dispatch({ type: "SHOW_LOADING" });
+      // ⭐️ API URL fix
+      const { data } = await axios.get(`${API_BASE_URL}/api/bills/get-bills`);
       setBillsData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -20,6 +22,7 @@ const CutomerPage = () => {
       console.log(error);
     }
   };
+
   //useEffect
   useEffect(() => {
     getAllBills();
@@ -28,10 +31,7 @@ const CutomerPage = () => {
 
   const columns = [
     { title: "ID ", dataIndex: "_id" },
-    {
-      title: "Cutomer Name",
-      dataIndex: "customerName",
-    },
+    { title: "Cutomer Name", dataIndex: "customerName" },
     { title: "Contact No", dataIndex: "customerNumber" },
   ];
 

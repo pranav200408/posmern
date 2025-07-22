@@ -3,18 +3,20 @@ import DefaultLayout from "../components/DefaultLayout";
 import { useDispatch } from "react-redux";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { API_BASE_URL } from "../axios"; // ⭐️ Add this import!
 import { Modal, Button, Table, Form, Input, Select, message } from "antd";
+
 const ItemPage = () => {
   const dispatch = useDispatch();
   const [itemsData, setItemsData] = useState([]);
   const [popupModal, setPopupModal] = useState(false);
   const [editItem, setEditItem] = useState(null);
+
   const getAllItems = async () => {
     try {
-      dispatch({
-        type: "SHOW_LOADING",
-      });
-      const { data } = await axios.get("/api/items/get-item");
+      dispatch({ type: "SHOW_LOADING" });
+      // ⭐️ API CALL FIX
+      const { data } = await axios.get(`${API_BASE_URL}/api/items/get-item`);
       setItemsData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -23,19 +25,18 @@ const ItemPage = () => {
       console.log(error);
     }
   };
+
   //useEffect
   useEffect(() => {
     getAllItems();
     //eslint-disable-next-line
   }, []);
 
-  //handle deleet
+  //handle delete
   const handleDelete = async (record) => {
     try {
-      dispatch({
-        type: "SHOW_LOADING",
-      });
-      await axios.post("/api/items/delete-item", { itemId: record._id });
+      dispatch({ type: "SHOW_LOADING" });
+      await axios.post(`${API_BASE_URL}/api/items/delete-item`, { itemId: record._id }); // ⭐️ Fixed here!
       message.success("Item Deleted Succesfully");
       getAllItems();
       setPopupModal(false);
@@ -47,7 +48,40 @@ const ItemPage = () => {
     }
   };
 
-  //able data
+  //handle form submit
+  const handleSubmit = async (value) => {
+    if (editItem === null) {
+      try {
+        dispatch({ type: "SHOW_LOADING" });
+        const res = await axios.post(`${API_BASE_URL}/api/items/add-item`, value); // ⭐️ Fixed here!
+        message.success("Item Added Succesfully");
+        getAllItems();
+        setPopupModal(false);
+        dispatch({ type: "HIDE_LOADING" });
+      } catch (error) {
+        dispatch({ type: "HIDE_LOADING" });
+        message.error("Something Went Wrong");
+        console.log(error);
+      }
+    } else {
+      try {
+        dispatch({ type: "SHOW_LOADING" });
+        await axios.put(`${API_BASE_URL}/api/items/edit-item`, {
+          ...value,
+          itemId: editItem._id,
+        }); // ⭐️ Fixed here!
+        message.success("Item Updated Succesfully");
+        getAllItems();
+        setPopupModal(false);
+        dispatch({ type: "HIDE_LOADING" });
+      } catch (error) {
+        dispatch({ type: "HIDE_LOADING" });
+        message.error("Something Went Wrong");
+        console.log(error);
+      }
+    }
+  };
+
   const columns = [
     { title: "Name", dataIndex: "name" },
     {
@@ -58,7 +92,6 @@ const ItemPage = () => {
       ),
     },
     { title: "Price", dataIndex: "price" },
-
     {
       title: "Actions",
       dataIndex: "_id",
@@ -81,44 +114,6 @@ const ItemPage = () => {
       ),
     },
   ];
-
-  // handle form  submit
-  const handleSubmit = async (value) => {
-    if (editItem === null) {
-      try {
-        dispatch({
-          type: "SHOW_LOADING",
-        });
-        const res = await axios.post("/api/items/add-item", value);
-        message.success("Item Added Succesfully");
-        getAllItems();
-        setPopupModal(false);
-        dispatch({ type: "HIDE_LOADING" });
-      } catch (error) {
-        dispatch({ type: "HIDE_LOADING" });
-        message.error("Something Went Wrong");
-        console.log(error);
-      }
-    } else {
-      try {
-        dispatch({
-          type: "SHOW_LOADING",
-        });
-        await axios.put("/api/items/edit-item", {
-          ...value,
-          itemId: editItem._id,
-        });
-        message.success("Item Updated Succesfully");
-        getAllItems();
-        setPopupModal(false);
-        dispatch({ type: "HIDE_LOADING" });
-      } catch (error) {
-        dispatch({ type: "HIDE_LOADING" });
-        message.error("Something Went Wrong");
-        console.log(error);
-      }
-    }
-  };
 
   return (
     <DefaultLayout>
