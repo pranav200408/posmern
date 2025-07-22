@@ -13,8 +13,17 @@ connectDb();
 //rest object
 const app = express();
 
+// ---- CORS CONFIG START ----
+app.use(cors({
+  origin: [
+    "https://posmern-frontend-final.onrender.com",
+    "http://localhost:3000"
+  ],
+  credentials: true
+}));
+// ---- CORS CONFIG END ----
+
 //middlwares
-app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
