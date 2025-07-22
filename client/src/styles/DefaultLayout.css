@@ -1,3 +1,22 @@
+/* Only the POS logo: cyan, big, centered */
+.logo {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #00e0fc;                   /* Vibrant cyan text */
+  text-align: center;
+  width: 100%;
+  letter-spacing: 2px;
+  margin: 32px 0 16px 0;
+  text-shadow: 0 0 14px #00e0fc99;
+  background: none;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rest of your previous Sidebar/app styles preserved */
+
 #components-layout-demo-custom-trigger .trigger {
   padding: 0 24px;
   font-size: 18px;
@@ -5,7 +24,6 @@
   cursor: pointer;
   transition: color 0.3s;
 }
-
 #components-layout-demo-custom-trigger .trigger:hover {
   color: #1890ff;
 }

@@ -21,10 +21,8 @@ const DefaultLayout = ({ children }) => {
   const { cartItems, loading } = useSelector((state) => state.rootReducer);
   const [collapsed, setCollapsed] = useState(false);
 
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
-  //to get localstorage data
+  const toggle = () => setCollapsed(!collapsed);
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
@@ -33,9 +31,7 @@ const DefaultLayout = ({ children }) => {
     <Layout>
       {loading && <Spinner />}
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">
-          <h1 className="text-center text-light font-wight-bold mt-4">POS</h1>
-        </div>
+        <div className="logo">POS</div>
         <Menu
           theme="dark"
           mode="inline"
@@ -51,7 +47,7 @@ const DefaultLayout = ({ children }) => {
             <Link to="/items">Items</Link>
           </Menu.Item>
           <Menu.Item key="/customers" icon={<UserOutlined />}>
-            <Link to="/customers">Cutomers</Link>
+            <Link to="/customers">Customers</Link>
           </Menu.Item>
           <Menu.Item
             key="/logout"
