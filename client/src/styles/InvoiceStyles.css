@@ -1,0 +1,135 @@
+#invoice-POS {
+  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+  padding: 4mm;
+  margin: 0 auto;
+  width: 76mm;
+  background: #fff;
+}
+
+::selection {
+  background: #f31544;
+  color: #fff;
+}
+::moz-selection {
+  background: #f31544;
+  color: #fff;
+}
+h1 {
+  font-size: 1.5em;
+  color: #222;
+}
+h2 {
+  font-size: 0.9em;
+}
+h3 {
+  font-size: 1.2em;
+  font-weight: 300;
+  line-height: 2em;
+}
+p {
+  font-size: 0.7em;
+  color: #666;
+  line-height: 1.2em;
+}
+
+#top,
+#mid,
+#bot {
+  /* Targets all id with 'col-' */
+  border-bottom: 1px solid #eee;
+}
+
+#top {
+  min-height: 100px;
+}
+
+#bot {
+  min-height: 50px;
+}
+
+#top .logo {
+  height: 60px;
+  width: 120px;         /* Naam ko fit karne ke liye width badha di */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #1a237e;       /* Khud ke brand ka favourite color bhi de sakte ho */
+  background: none;
+  border-radius: 12px;
+  margin: 0 auto 5px auto;
+  
+}
+.logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e3f2fd;
+  border: 2px solid #1a237e;
+  box-shadow: 0 2px 8px rgba(26,35,126,0.08);
+  border-radius: 12px;
+  font-size: 1.3em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #1a237e;
+  height: 58px;
+  width: 95%;
+  margin: 0 auto 12px auto;
+  padding: 7px 0;
+}
+
+@media (max-width: 500px) {
+  .logo-box {
+    font-size: 1em;
+    height: 40px;
+    padding: 4px 0;
+  }
+}
+
+
+.clientlogo {
+  float: left;
+  height: 60px;
+  width: 60px;
+  background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+  background-size: 60px 60px;
+  border-radius: 50px;
+}
+.info {
+  display: block;
+  /* //float:left; */
+  margin-left: 0;
+}
+.title {
+  float: right;
+}
+.title p {
+  text-align: right;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+/* td {
+    //padding: 5px 0 5px 15px;
+    //border: 1px solid #EEE
+  } */
+.tabletitle {
+  /* //padding: 5px; */
+  font-size: 0.5em;
+  background: #eee;
+}
+.service {
+  border-bottom: 1px solid #eee;
+}
+.item {
+  width: 24mm;
+}
+.itemtext {
+  font-size: 0.5em;
+}
+
+#legalcopy {
+  margin-top: 5mm;
+}
